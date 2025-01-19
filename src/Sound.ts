@@ -1,6 +1,6 @@
-const successSound = new Audio('/success.mp3');
+const successSound = new Audio('/alef/success.mp3');
 successSound.volume = 0.5;
-const failureSound = new Audio('/failure.mp3');
+const failureSound = new Audio('/alef/failure.mp3');
 failureSound.volume = 0.5;
 
 const Sound = {

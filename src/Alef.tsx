@@ -17,8 +17,8 @@ const HebrewAnimalGame = () => {
 
   
   useEffect (() => {
-    _confetti.current = confetti.create(canvasRef.current);
     if (canvasRef.current){
+        _confetti.current = confetti.create(canvasRef.current);
         canvasRef.current.width = document.documentElement.clientWidth;
         canvasRef.current.height = document.documentElement.clientHeight;
     }

@@ -27,7 +27,7 @@ const HebrewAnimalGame = () => {
     }, [canvasRef])
 
 
-    const shuffleArray = (array: Question[]) => {
+    const shuffleArray = (array: Array<any>) => {
         const shuffled = [...array];
         for (let i = shuffled.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
@@ -37,7 +37,11 @@ const HebrewAnimalGame = () => {
     };
 
     useEffect(() =>
-        setShuffledQuestions(shuffleArray(questions.filter(q => q.category === category)))
+    {
+        const shuffledQuestions = shuffleArray(questions.filter(q => q.category === category));
+        shuffledQuestions.forEach (question => question.options = shuffleArray(question.options));
+        setShuffledQuestions(shuffledQuestions)
+    }
         , [category]);
 
     const handleAnswer = (answer: string) => {

@@ -13,7 +13,7 @@ const HebrewAnimalGame = () => {
     const [showAnswer, setShowAnswer] = useState<boolean>(false);
     const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
     const [gameStarted, setGameStarted] = useState<boolean>(false);
-    const [category, setCategory] = useState<'offspring' | 'female'>('offspring');
+    const [category, setCategory] = useState<'offspring' | 'female' | 'synonym'>('offspring');
     const [shuffledQuestions, setShuffledQuestions] = useState<Question[]>([])
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const _confetti = useRef<() => void>();
@@ -104,8 +104,8 @@ const HebrewAnimalGame = () => {
                     <CardContent className="p-6">
                         {!gameStarted ? (
                             <div className="text-center">
-                                <h1 className="text-2xl font-bold mb-4">חיות בעברית</h1>
-                                <p className="mb-6">משחק חיות בעברית!</p>
+                                <h1 className="text-2xl font-bold mb-4">אלף</h1>
+                                <p className="mb-6">משחקי מלים בעברית!</p>
                                 <div className="mb-4">
                                     <Button
                                         onClick={() => {
@@ -121,9 +121,18 @@ const HebrewAnimalGame = () => {
                                             setCategory('female');
                                             startNewGame();
                                         }}
-                                        className="w-full"
+                                        className="w-full mb-2"
                                     >
                                         שמות הנקבות
+                                    </Button>
+                                    <Button
+                                        onClick={() => {
+                                            setCategory('synonym');
+                                            startNewGame();
+                                        }}
+                                        className="w-full"
+                                    >
+                                        מלים נרדפות
                                     </Button>
                                 </div>
                             </div>
@@ -138,9 +147,12 @@ const HebrewAnimalGame = () => {
 
                                 <div className="mb-8 text-center">
                                     {category === 'offspring' ?
-                                        <h2 className="text-xl mb-2">מה השם של הצאצא של {getCurrentQuestion().animalHebrew}?</h2>
+                                        <h2 className="text-xl mb-2">מה השם של הצאצא של {getCurrentQuestion().wordHebrew}?</h2>
                                         :
-                                        <h2 className="text-xl mb-2">מה השם הנקבה של {getCurrentQuestion().animalHebrew}?</h2>
+                                        category === 'female' ?
+                                            <h2 className="text-xl mb-2">מה השם הנקבה של {getCurrentQuestion().wordHebrew}?</h2>
+                                            :
+                                            <h2 className="text-xl mb-2">מה המילה הנרדפת של {getCurrentQuestion().wordHebrew}?</h2>
                                     }
                                 </div>
 

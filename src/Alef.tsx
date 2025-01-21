@@ -3,6 +3,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import confetti from 'canvas-confetti';
 import { Check, X } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
+import "./Alef.css";
 import questions, { Question } from './questions';
 import Sound from './Sound';
 
@@ -25,6 +26,24 @@ const HebrewAnimalGame = () => {
             canvasRef.current.height = document.documentElement.clientHeight;
         }
     }, [canvasRef])
+
+    useEffect(() => {
+        if (!gameStarted || showAnswer) return;
+        let brk = false;
+        const tapSound = (i: number) => {
+            if (i >= 4 || brk) return;
+            console.log(i);
+            Sound.tap();
+            i++;
+            setTimeout(() => tapSound(i), 100);
+        }
+
+        tapSound(0);
+
+        return () => {
+            brk = true;
+        }
+    }, [showAnswer, gameStarted])
 
 
     const shuffleArray = (array: Array<any>) => {
@@ -125,7 +144,7 @@ const HebrewAnimalGame = () => {
                                     }
                                 </div>
 
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 stagger-children">
                                     {getCurrentQuestion().options.map((option, index) => (
                                         <Button
                                             key={index}
@@ -136,7 +155,7 @@ const HebrewAnimalGame = () => {
                                                         : option === selectedAnswer
                                                             ? 'bg-red-500 hover:bg-red-600'
                                                             : 'bg-gray-300 hover:bg-gray-400'
-                                                    : 'bg-blue-500 hover:bg-blue-600'
+                                                    : 'bg-blue-500 hover:bg-blue-600 stagger'
                                                 }`}
                                             disabled={showAnswer}
                                         >

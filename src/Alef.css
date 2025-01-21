@@ -1,0 +1,25 @@
+@keyframes fade-down {
+    from {
+        opacity: 0.5;
+        transform: translate3d(0, -30px, 0);
+    }
+    to {
+        opacity: 1;
+        transform: translate3d(0,0,0);
+    }
+}
+
+.stagger-children .stagger{
+    animation: fade-down 0.1s ease-in-out forwards;
+    opacity: 0;
+}
+
+.stagger-children .stagger:nth-child(2) {
+    animation-delay: 0.1s;
+}
+.stagger-children .stagger:nth-child(3) {
+    animation-delay: 0.2s;
+}
+.stagger-children .stagger:nth-child(4) {
+    animation-delay: 0.3s;
+}
